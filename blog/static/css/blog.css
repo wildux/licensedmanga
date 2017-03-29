@@ -1,0 +1,70 @@
+h1 a {
+	color: #FCA205;
+}
+
+body {    
+	font-family: 'Roboto', sans-serif;
+}
+
+.navbar-brand {
+	padding: 10px 10px 10px 10px;
+}
+
+.table a:hover {
+	color: white;
+	background-color: #aabec8;
+	text-decoration:none;
+}
+.table a {
+	padding: 12px;
+	display: block;
+	height: 100%;
+}	
+.table>tbody>tr>td {
+	padding: 0px;
+}
+
+.mangatypes {
+		display: table;		
+		word-break: break-all;
+		width: 100%;		
+		text-shadow: 0 0 2px  black;
+		border-spacing: collapse;		
+	}	
+	
+	.mangatypes span, .mangatypes a {
+		display: table-cell;
+		padding: 10px 15px;
+		text-decoration: none;
+		color: white;
+		cursor: pointer;
+		text-align: center;
+	}	
+	
+	.mangatypes span:hover, .mangatypes a:hover {
+		color: black;
+		text-decoration:none;
+		text-shadow: 0 0 2px white;
+	}
+	
+	.mangatypes span:first-child, .mangatypes a:first-child {
+		border-radius: 8px 0 0 8px;
+	}
+	
+	.mangatypes span:last-child, .mangatypes a:last-child {
+		border-radius: 0 8px 8px 0;
+	}	
+	
+	
+	@media screen and (max-width: 768px) {
+		.mangatypes span, .mangatypes a {
+			display: block;
+		}	
+		.mangatypes span:first-child, .mangatypes a:first-child {
+			border-radius: 8px 8px 0 0;
+		}
+	
+		.mangatypes span:last-child, .mangatypes a:last-child {
+			border-radius: 0 0 8px 8px;
+		}    
+	}

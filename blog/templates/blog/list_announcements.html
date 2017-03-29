@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block head_title %}Announcements {{ year }}{% endblock %}
+
+{% block content %}
+	{% for announcement in announcements %}
+		<div class="announcement">			
+			<h1><a href="{% url 'view_serie' slug=announcement.serie.slug %}">{{ announcement }}</a></h1>
+			<p>{{ announcement.a_date }}</p>
+		</div>
+	{% endfor %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+
+{% block head_title %}Licensed Manga - Calendar{% endblock %}
+
+{% block content %}
+	<h1>Calendar - {{ month }}/{{ year }}</h1>
+	{% for volume in volumes %}
+		<div class="volume">
+			<h1><a href="{% url 'view_serie' slug=volume.serie.slug %}">{{ volume }}</a></h1>
+			<p>{{ volume.release }}</p>
+		</div>
+	{% endfor %}
+{% endblock %}

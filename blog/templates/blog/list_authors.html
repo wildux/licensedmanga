@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+
+{% block head_title %}Licensed Manga - Authors{% endblock %}
+
+{% block content %}
+	{% for author in authors %}
+		<div class="author">
+			<h1><a href="{% url 'view_author' slug=author.slug %}">{{ author.name }}</a></h1>
+		</div>
+	{% endfor %}
+{% endblock %}

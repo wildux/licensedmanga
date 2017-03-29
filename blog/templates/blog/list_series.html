@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block head_title %}Licensed Manga - Series{% endblock %}
+
+{% block content %}
+	<h1>{{ demography }}</h1>
+	{% for serie in series %}
+		<div class="serie">
+			<h1><a href="{% url 'view_serie' slug=serie.slug %}">{{ serie.title }}</a></h1>
+		</div>
+	{% endfor %}
+{% endblock %}

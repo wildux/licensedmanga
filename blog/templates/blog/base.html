@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>{% block head_title %}Licensed Manga{% endblock %}</title>
+		<link rel="shortcut icon" type="image/png" href="/media/logo.jpg"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+		<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+		{% block extra_css %}{% endblock %}
+	</head>
+
+	<body>
+		<nav class="navbar navbar-inverse navbar-static-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">
+						<img src="/media/logo.jpg" width="30px">
+					</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}"><a href="{% url 'index' %}">Blog</a></li>
+					<li class="{% if request.resolver_match.url_name == 'list_volumes' %}active{% endif %}"><a href="{% url 'list_volumes' %}">Calendar</a></li>
+					<li class="{% if request.resolver_match.url_name == 'list_series' %}active{% endif %}"><a href="{% url 'list_series' %}">Series</a></li>
+					<li class="{% if request.resolver_match.url_name == 'list_authors' %}active{% endif %}"><a href="{% url 'list_authors' %}">Authors</a></li>
+					<li class="{% if request.resolver_match.url_name == 'list_publishers' %}active{% endif %}"><a href="{% url 'list_publishers' %}">Publishers</a></li>
+					<li class="{% if request.resolver_match.url_name == 'list_announcements' %}active{% endif %}"><a href="{% url 'list_announcements' %}">New licenses</a></li>
+					<li class="{% if request.resolver_match.url_name == 'list_links' %}active{% endif %}"><a href="{% url 'list_links' %}">Links</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<a class="navbar-brand" href="http://twitter.com/licensedmanga"> <img src="/media/twitter.png" width="30px"> </a>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="container-fluid col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+			{% block content %}
+			{% endblock %}
+		</div>
+
+	</body>
+</html>

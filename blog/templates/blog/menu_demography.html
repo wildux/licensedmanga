@@ -1,0 +1,9 @@
+<div class="mangatypes">
+	<a style="background:#2a2a2a" href="{{ path }}">All</a>
+{% for demography in demographies %}
+	<a style="background:{{ demography.color }}" href="{{ path }}/{{ demography.slug }}">{{ demography }}</a>
+{% endfor %}
+</div>
+
+
+

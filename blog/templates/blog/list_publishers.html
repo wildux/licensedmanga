@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+
+{% block head_title %}Licensed Manga - Publishers{% endblock %}
+
+{% block content %}
+	{% for publisher in publishers %}
+		<div class="publisher">
+			<h1>
+				<a href="{% url 'view_publisher' slug=publisher.slug %}">{{ publisher.name }}</a>
+				<div class='label label-{{ publisher.getBootstrapColor }}' style='float:right'>{{ publisher.state }}</div>
+			</h1>
+		</div>
+	{% endfor %}
+{% endblock %}

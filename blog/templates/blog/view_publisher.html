@@ -1,0 +1,44 @@
+{% extends 'blog/base.html' %}
+
+{% block head_title %}{{ publisher.name }}{% endblock %}
+
+{% block content %}
+<div itemscope itemtype='http://schema.org/Organization'>
+	<h1 itemprop='name'>{{ publisher.name }}</h1><br>
+	<div class='media'>
+		{% if publisher.image %}
+			<div itemprop='logo' itemscope itemtype='http://schema.org/ImageObject' class='media-left media-top'>
+				<img class='media-object' src='{{ publisher.image.url }}' alt='2D Market' itemprop='contentUrl' style='width:150px;height:150px;'>
+			</div>
+		{% endif %}
+
+		<div class='media-body'>
+			<ul>
+				<li><b>Founded:</b> <span itemprop='foundingDate'>{{ publisher.year }}</span></li>
+				<li><b>Location:</b> <span itemprop='address'>{{ publisher.location }}</span></li>
+				<li><b>State:</b> <span class='label label-{{ publisher.getBootstrapColor }}'>{{ publisher.state }}</span></li>
+				<li><b>Web:</b> <a href='{{ publisher.website }}'><span itemprop='url'>{{ publisher.website }}</span></a></li>
+				<br>
+				<dl class='dl'>
+					<dt>Comments:</dt>
+					<dd>{{ publisher.comments }}</dd>
+				</dl>
+			</ul>
+		</div>
+	</div>
+	<br>
+	<h3>Published titles - {{ demography }}
+		<span class='badge'>{{ series|length }}</span>
+	</h3>
+	<hr>	
+	{% include "blog/menu_demography.html" with path="/publisher/"|add:publisher.slug %}
+	<br><br>
+	<table class='table'>
+	{% for serie in series %}
+		<tr>
+			<td><a href="{% url 'view_serie' slug=serie.slug %}">{{ serie }}</a></td>
+		</tr>
+	{% endfor %}
+	</table>
+</div>
+{% endblock %}

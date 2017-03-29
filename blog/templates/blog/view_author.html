@@ -1,0 +1,37 @@
+{% extends 'blog/base.html' %}
+
+{% block head_title %}{{ author.name }}{% endblock %}
+
+{% block content %}
+<div itemscope itemtype='http://schema.org/Person'>
+	<h1 itemprop='name'>{{ author.name }}</h1><br>
+	<div class='media'>
+		<div class='media-body'>
+			<ul>
+				<li><b>Birth date:</b> <span itemprop='birthDate'>{{ author.birth_date }}</span></li>
+				<li><b>Birth place:</b> <span itemprop='birthPlace'>{{ author.birth_place }}</span></li>
+				<li><b>Gender:</b> <span itemprop='gender'>{{ author.gender }}</span></a></li>
+				<br>
+				<dl class='dl'>
+					<dt>Comments:</dt>
+					<dd>{{ author.comments }}</dd>
+				</dl>
+			</ul>
+		</div>
+	</div>
+	<br>
+	<h3>Published titles - {{ demography }}
+		<span class='badge'>{{ series|length }}</span>
+	</h3>
+	<hr>
+	{% include "blog/menu_demography.html" with path="/author/"|add:author.slug %}
+	<br><br>
+	<table class='table'>
+	{% for serie in series %}
+		<tr>
+			<td><a href="{% url 'view_serie' slug=serie.slug %}">{{ serie }}</a></td>
+		</tr>
+	{% endfor %}
+	</table>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'blog/base.html' %}
+
+{% block head_title %}{{ serie.title }}{% endblock %}
+
+{% block content %}
+	<div class="serie">
+		<h1>{{ serie.title }}</h1>
+		<p>{{ serie.synopsis }}</p>
+		{% for genre in serie.genres.all %}
+			<p><a style="color: white;" href="{% url 'list_series_genre' genre=genre.slug %}"><span class='label label-default'>{{ genre }}</span></a></p>
+		{% endfor %}
+	</div>
+	Volumes ({{ volumes|length }})
+	{% for volume in volumes %}
+		<p>{{ volume }}</p>
+	{% endfor %}
+
+
+
+<div itemscope itemtype='http://schema.org/Book' itemid='#serie'>
+	<meta itemprop='inLanguage' content='en'>
+	<h1><span itemprop='name'>One Piece</span></h1>
+	<br>
+	<ul>
+		<li><b>Original title:</b> <span itemprop='alternateName'> One Piece</span></li>
+		<li>
+			<b>Writer/s:</b> <span itemprop='author' itemscope itemtype='http://schema.org/Person' itemid='#author'>
+			<link itemprop='sameAs' href='/authors/194'>
+			<meta itemprop='name' content='Eiichiro Oda'>
+			<a href='/authors/194'>Eiichiro Oda</a>
+			</span>
+		</li>
+		<li>
+			<b>Artist/s:</b> <span itemprop='illustrator' itemscope itemtype='http://schema.org/Person' itemid='#illustrator'>
+			<link itemprop='sameAs' href='/authors/194'>
+			<meta itemprop='name' content='Eiichiro Oda'>
+			<a href='/authors/194'>Eiichiro Oda</a>
+			</span>
+		</li>
+		<li><b>Year:</b> <span itemprop='dateCreated'> 1997</span></li>
+		<li><b>Original volumes:</b> 81 <span class='label label-success'>Ongoing</li>
+		<li><b>English edition:</b> <span itemprop='bookEdition'> Single volumes, paperback </span> <span class='label label-success'>Ongoing</li>
+		<li><b>Original publisher:</b> <a href='/publishers/37'>Shueisha</a></li>
+		<li><b>English publisher:</b> <a href='/publishers/3'><span itemprop='publisher'>VIZ Media</span></a></li>
+		<li><b>Type:</b> <a href='/series?type=3'><span itemprop='audience'>Shonen</span></a></li>
+		<br><li><b>Genres:</b>
+			<span itemprop='genre'>
+				<span class='label label-default'>Action</span>
+			</span>
+		</li><br>
+		<dl class='dl'>
+			<dt>Synopsis:</dt>
+				<dd><span itemprop='description'>{{ serie.synopsis }}</span></dd>
+			</dl>
+	</ul><br>
+
+	<h3>Volumes in english <span class='badge'>78</span></h3><hr><br><div class='portfolio'>
+	<div class='col-lg-2 col-md-3 col-sm-3 col-xs-6'>
+		<div itemprop='hasPart' itemscope itemtype='http://schema.org/PublicationVolume' itemid='#vol628'>
+			<div class='thumbnail'>							
+				<link itemprop='author' href='#author'>
+				<link itemprop='author' href='#illustrator'>
+				<meta itemprop='inLanguage' content='en'>
+				<img src='/images/series/234/628.jpg' itemprop='image' style='width:150px;height:220px;'>
+				<div class='caption'>
+					<h3>#<span itemprop='volumeNumber'>78</span></h3>
+					<span itemprop='datePublished'>May 03, 2016</span>
+					<br>$9.99<br>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='clear'></div>
+</div>
+{% endblock %}
