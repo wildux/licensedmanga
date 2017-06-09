@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Category, Author, Publisher, Serie, Volume, Genre, Demography, Announcement, Price
+from .models import Post, Category, Author, Publisher, Serie, Volume, Genre, Demography, Announcement
 from django.utils.safestring import mark_safe
 from django.core.urlresolvers import reverse
 
@@ -32,13 +32,6 @@ class EditLinkToInlineObject(object):
 		else:
 			return ''
 
-class PriceInline(admin.TabularInline):
-	model = Price
-	extra = 1
-
-class VolumeAdmin(admin.ModelAdmin):
-	inlines = [PriceInline]
-
 class VolumeInline(admin.TabularInline):
 	model = Volume
 	extra = 1
@@ -55,7 +48,6 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Publisher, PublisherAdmin)
 admin.site.register(Serie, SerieAdmin)
-admin.site.register(Volume, VolumeAdmin)
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Demography, DemographyAdmin)
 admin.site.register(Announcement)

@@ -32,7 +32,7 @@ def list_series(request, demography='all'):
 	if demography == 'all':
 		series = Serie.objects.order_by('title')
 		return render(request, 'blog/list_series.html', {'series': series})
-	else:		
+	else:
 		demography = get_object_or_404(Demography, slug=demography)
 		return render(request, 'blog/list_series.html', {
 			'demography': demography,

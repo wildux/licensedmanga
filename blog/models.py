@@ -149,21 +149,23 @@ class Serie(models.Model):
 
 	title = models.CharField(max_length=200, unique=True)
 	slug = models.SlugField(max_length=200, unique=True)
-	original_title = models.CharField(max_length=200,blank=True)
-	demographies = models.ManyToManyField('blog.Demography',blank=True)
-	genres = models.ManyToManyField('blog.Genre',blank=True)
+	original_title = models.CharField(max_length=200, blank=True)
+	demographies = models.ManyToManyField('blog.Demography', blank=True)
+	genres = models.ManyToManyField('blog.Genre', blank=True)
 	synopsis = models.TextField(blank=True)
 	publisher = models.ForeignKey(
 		'blog.Publisher',
 		limit_choices_to={'origin': Publisher.ENGLISH},
 		related_name="publishers",
-		related_query_name="publisher"
+		related_query_name="publisher",
+		blank=True,
 	)
 	original_publisher = models.ForeignKey(
 		'blog.Publisher',
 		limit_choices_to={'origin': Publisher.ORIGINAL},
 		related_name="original_publishers",
-		related_query_name="original_publisher"
+		related_query_name="original_publisher",
+		blank=True,
 	)
 	artists = models.ManyToManyField(
 		'blog.Author',
@@ -180,7 +182,7 @@ class Serie(models.Model):
 	year = models.PositiveSmallIntegerField(blank=True, null=True)
 	orig_volumes = models.PositiveSmallIntegerField(blank=True, null=True)
 	edition = models.CharField(max_length=10, choices=EDITION_CHOICES, default=UNKNOWN)
-	edition_comments = models.CharField(max_length=50,blank=True)
+	edition_comments = models.CharField(max_length=50, blank=True)
 
 	def __str__(self):
 		return self.title
@@ -190,21 +192,21 @@ class Serie(models.Model):
 		return ('view_serie', None, { 'slug': self.slug })
 
 	def getStateColor(self):
-		if state.state == self.UNKNOWN:
+		if self.state == self.UNKNOWN:
 			return "default"
-		elif state.state == self.ONGOING:
+		elif self.state == self.ONGOING:
 			return "success"
-		elif state.state == self.COMPLETED:
+		elif self.state == self.COMPLETED:
 			return "primary"
 		else:
 			return "danger"
 
 	def getOriginalStateColor(self):
-		if orig_state.state == self.UNKNOWN:
+		if self.orig_state == self.UNKNOWN:
 			return "default"
-		elif orig_state.state == self.ONGOING:
+		elif self.orig_state == self.ONGOING:
 			return "success"
-		elif orig_state.state == self.COMPLETED:
+		elif self.orig_state == self.COMPLETED:
 			return "primary"
 		else:
 			return "danger"
@@ -241,7 +243,8 @@ class Volume(models.Model):
 	release = models.DateField(blank=True, null=True)
 	precision = models.CharField(max_length=2, choices=DATE_CHOICES, default=UNKNOWN)
 	options = models.CharField(max_length=1, choices=VOLUME_CHOICES, default=NORMAL)
-	image = image = models.ImageField(blank=True)
+	image = models.ImageField(blank=True)
+	price = models.CharField(max_length=50, blank=True)
 	comments = models.CharField(max_length=50, blank=True)
 
 	def __str__(self):
@@ -249,6 +252,7 @@ class Volume(models.Model):
 			return self.serie.title
 		return str(self.num) + ' - ' + self.serie.title
 
+'''
 class Price(models.Model):
 	EURO = '€'
 	DOLLAR = '$'
@@ -266,11 +270,12 @@ class Price(models.Model):
 	volume = models.ForeignKey('blog.Volume')
 	num = models.FloatField()
 	currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default=DOLLAR)
-
+'''
 
 class Announcement(models.Model):
 	serie = models.OneToOneField('blog.Serie')
-	a_date = models.DateField()
+	a_date = models.DateField(verbose_name="announcement date")
+	image = models.ImageField(blank=True)
 
 	def __str__(self):
 		return self.serie.title

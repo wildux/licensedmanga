@@ -11,31 +11,41 @@
 		<li><b>Original title:</b> <span itemprop='alternateName'> {{ serie.original_title }}</span></li>
 		<li>
 			<b>Writer/s:</b>
-			{% for writer in writers.author.all %}
+			{% for writer in serie.writers.all %}
 			<span itemprop='author' itemscope itemtype='http://schema.org/Person' itemid='#author'>
-				<link itemprop='sameAs' href='/authors/194'>
-				<meta itemprop='name' content='Eiichiro Oda'>
-				<a href='/authors/194'>{{ writer }}</a>
+				<link itemprop='sameAs' href="{% url 'view_author' slug=writer.slug %}">
+				<meta itemprop='name' content="{{ writer }}">
+				<a href="{% url 'view_author' slug=writer.slug %}">{{ writer }}</a>
 			</span>
 			{% endfor %}
 		</li>
 		<li>
 			<b>Artist/s:</b>
-			{% for artist in artists %}
+			{% for artist in serie.artists.all %}
 			<span itemprop='illustrator' itemscope itemtype='http://schema.org/Person' itemid='#illustrator'>
-				<link itemprop='sameAs' href='/authors/194'>
-				<meta itemprop='name' content='Eiichiro Oda'>
-				<a href='/authors/194'>{{ artist }}</a>
+				<link itemprop='sameAs' href="{% url 'view_author' slug=artist.slug %}">
+				<meta itemprop='name' content="{{ artist }}">
+				<a href="{% url 'view_author' slug=artist.slug %}">{{ artist }}</a>
 			</span>
 			{% endfor %}
 		</li>
 		<li><b>Year:</b> <span itemprop='dateCreated'> {{ serie.year }}</span></li>
-		<li><b>Original volumes:</b> {{ serie.title }} <span class='label label-success'>{{ serie.orig_volumes }}</li>
-		<li><b>English edition:</b> <span itemprop='bookEdition'> {{ serie.edition }} </span> <span class='label label-success'>{{ serie.state }}</li>
-		<li><b>Original publisher:</b> <a href='/publishers/37'>{{ serie.publisher }}</a></li>
-		<li><b>English publisher:</b> <a href='/publishers/3'><span itemprop='publisher'>{{ serie.original_publisher }}</span></a></li>
-		<li><b>Type:</b> <a href='/series?type=3'><span itemprop='audience'>{{ serie.title }}</span></a></li>
-		<br><li><b>Genres:</b>
+		<li><b>Original volumes:</b> {{ serie.orig_volumes }} <span class='label label-{{ serie.getStateColor }}'>{{ serie.orig_state }}</li>
+		<li><b>English edition:</b> <span itemprop='bookEdition'> {{ serie.edition }} </span> <span class='label label-{{ serie.getOriginalStateColor }}'>{{ serie.state }}</li>
+		<li><b>Original publisher:</b> <a href="{% url 'view_publisher' slug=serie.publisher.slug %}">{{ serie.publisher }}</a></li>
+		<li><b>English publisher:</b> <a href="{% url 'view_publisher' slug=serie.publisher.slug %}"><span itemprop='publisher'>{{ serie.original_publisher }}</span></a></li>
+		<li>
+			<b>Type:</b>
+			{% for demography in serie.demographies.all %}
+			<span itemprop='audience'>
+				<a style="color: white;" href="{% url 'list_series_demography' demography=demography.slug %}">
+					<span class='label label-default' style="background: {{ demography.color }};">{{ demography }}</span>
+				</a>
+			</span>
+			{% endfor %}
+		</li>
+		<li>
+			<b>Genres:</b>
 			{% for genre in serie.genres.all %}
 			<span itemprop='genre'>
 				<a style="color: white;" href="{% url 'list_series_genre' genre=genre.slug %}">
